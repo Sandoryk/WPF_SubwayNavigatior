@@ -1,0 +1,36 @@
+Point pt1 = new Point(10, 10);
+            Point pt1to = new Point(100, 120);
+            Point pt2 = new Point(100, 10);
+            Point pt2to = new Point(150, 30);
+            Point pt3 = new Point(50, 50);
+            Point pt3to = new Point(30, 80);
+            PathGeometry pgeom = new PathGeometry();
+            PathFigure pfig1 = new PathFigure();
+
+            LineSegment ls1 = new LineSegment(pt1, true);
+            LineSegment ls2 = new LineSegment(pt2, true);
+            LineSegment ls3 = new LineSegment(pt3, true);
+
+            PointAnimation pa1 = new PointAnimation(pt1to, new Duration(new TimeSpan(0, 0, 4)));
+            PointAnimation pa2 = new PointAnimation(pt2to, new Duration(new TimeSpan(0, 0, 4)));
+            PointAnimation pa3 = new PointAnimation(pt3to, new Duration(new TimeSpan(0, 0, 4)));
+
+            pfig1.StartPoint = pt3;
+            pfig1.Segments.Add(ls1);
+            pfig1.Segments.Add(ls2);
+            pfig1.Segments.Add(ls3);
+
+            pgeom.Figures.Add(pfig1);
+            System.Windows.Shapes.Path myPath = new System.Windows.Shapes.Path();
+            myPath.Stroke = Brushes.Black;
+            myPath.StrokeThickness = 3;
+            myPath.Fill = Brushes.Blue;
+            myPath.Data = pgeom;
+
+            // Add this to the Grid I named 'MyGrid'
+            mainWin.MainGrid.Children.Add(myPath);
+
+            ls1.BeginAnimation(LineSegment.PointProperty, pa1);
+            ls2.BeginAnimation(LineSegment.PointProperty, pa2);
+            ls3.BeginAnimation(LineSegment.PointProperty, pa3);
+            pfig1.BeginAnimation(PathFigure.StartPointProperty, pa3);
